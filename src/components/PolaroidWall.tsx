@@ -9,7 +9,8 @@ const PolaroidWall = () => {
     { id: 5, image: "images/IMG_5172.JPG", caption: "First time playing on a Steinway", rotation: -4 },
     { id: 6, image: "images/IMG_5869.JPG", caption: "Study hard, eat good", rotation: 2 },
     { id: 7, image: "images/IMG_9676.HEIC", caption: "Me and my worst fears (Birds)", rotation: -3 },
-    { id: 8, image: "/api/placeholder/300/300", caption: "Weekend Hike", rotation: 5 },
+    { id: 8, image: "images/IMG_0012.JPG", caption: "Leetcode Grind with my coworker", rotation: 5 },
+    { id: 9, image: "images/54349385076_2bd35aca7d_o.jpg", caption: "Presenting Lovelytics at UTMIST Mid-year Showcase!", rotation: -1 },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,14 +57,14 @@ const PolaroidWall = () => {
   return (
     <div className="relative w-full h-[550px] flex items-center justify-center">
       {/* Corkboard with 3D wooden frame */}
-      <div className="relative w-[95%] h-[95%] rounded-xl shadow-2xl border-[40px] border-[#ae855c]">
+      <div className="relative w-[95%] h-[440px] shadow-2xl border-[40px] border-[#ae855c]">
         {/* Frame bevel effect */}
-        <div className="absolute inset-0 border-[12px] rounded-lg border-[#5C2C00] shadow-inner pointer-events-none" />
+        <div className="absolute inset-0 border-[12px]  border-[#5C2C00] shadow-inner pointer-events-none" />
 
         {/* Corkboard canvas */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full rounded-md"
+          className="absolute inset-0 w-full h-full "
         />
 
         {/* Fairy lights */}
