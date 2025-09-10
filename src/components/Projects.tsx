@@ -5,16 +5,16 @@ const Projects = () => {
   const projects = [
     {title: "Word Embbedings from LLMs with GloVe Vocabulary (Research)",
       description: "This repository contains precomputed LLaMA embedding vectors generated using the GloVe vocabulary (~350k+ words). These embeddings are taken from the last layer (32) of the LLaMA 3-8B model. It also contains gpt-oss-120b layer 35 and lasyer 36 (last layer) embeddings.",
-      technologies: ["C++", "Data Structures", "Algorithms"],
+      technologies: ["Transformers", "LLM", "Python", "PyTorch"],
       github: "https://github.com/cimhasgithub/Llama3_Vectors_Glove_Words",
       demo: null,
-      image: ""},
+      image: "images/vec.png"},
     {
       title: "Neighbourhood Explorer (GIS Tool)",
       description: "Implemented pathfinding and optimization algorithms (Dijkstra’s, A*, 3-opt, simulated annealing, multistart) for the TSP problem, improving path cost by 8%. Optimized C++ functions and STL usage for faster computation, improving runtime by 10%. Unable to share code due to academic integrity policies.",
       technologies: ["C++", "Data Structures", "Algorithms"],
       github: null,
-      demo: "public/ECE297 - OP2.pdf",
+      demo: "ECE297 - OP2.pdf",
       image: "images/ece297.png"
     },
     {
@@ -22,7 +22,7 @@ const Projects = () => {
       description: "Built a CNN with transfer learning (VGG-16) and image preprocessing in PyTorch for multi-class DR classification. Applied data augmentation, hyperparameter tuning, and visualization to improve model interpretability and performance.",
       technologies: ["Python", "PyTorch", "VGG-16", "CNN", "Data Augmentation"],
       github: "null",
-      demo: "public/Final Report A-1.pdf",
+      demo: "Final Report A-1.pdf",
       image: "images/retina.png"
     },
     {
@@ -49,22 +49,22 @@ const Projects = () => {
       demo: null,
       image: "images/remember.png"
     },
+    
+    {
+      title: "Piano Tiles",
+      description: "Piano Tiles in verilog on an FPGA. Used VGA for display, De1Soc Pushkeys for user input. Unable to share code due to academic integrity policies.",
+      technologies: ["Verilog", "FPGA"],
+      github: null,
+      demo: "https://drive.google.com/file/d/1HV1ziBJe5mNTIPex0dNBE0rG9t5uvF6S/view?resourcekey",
+      image: "images/piano.png"
+    },
     {
       title: "Reversi",
       description: "Designed a competitive Reversi bot in C using a simplified MiniMax algorithm, ranking in the top 40 among classmates. Improved algorithm efficiency by 10% with a weighted decision matrix and applied advanced debugging techniques. Unable to share code due to academic integrity policies.",
       technologies: ["C", "Algorithms"],
       github: null,
       demo: null,
-      image: ""
-    },
-    
-    {
-      title: "Piano Tiles",
-      description: "Piano Tiles in verilog on an FPGA. Used VGA for display, Audio for sound effects, and Keyboard for user input. Unable to share code due to academic integrity policies.",
-      technologies: ["Verilog", "FPGA"],
-      github: null,
-      demo: "https://drive.google.com/file/d/1HV1ziBJe5mNTIPex0dNBE0rG9t5uvF6S/view?resourcekey",
-      image: "images/piano.png"
+      image: "images/reversi.png"
     },
     {
       title: "Digital Healthcare Software",
@@ -72,7 +72,7 @@ const Projects = () => {
       technologies: ["Java"],
       github: "https://github.com/hhyxn/Digital-Health-Care-System",
       demo: null,
-      image: ""
+      image: "images/gr12.png"
     }
   ];
 

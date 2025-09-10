@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Phone, Send, Github, Linkedin } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,14 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+
+  const [sent, setSent] = useState(false); // track if already sent
+
+  // Email validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isEmailValid = emailRegex.test(formData.email);
+  const isMessageValid = formData.message.length > 0 && formData.message.length <= 500;
+  const isFormValid = isEmailValid && isMessageValid && formData.name && formData.subject;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -18,10 +27,32 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    if (sent) return; // block multiple submissions
+    if (!isFormValid) return; // block invalid form
+
+    emailjs
+      .send(
+        "service_49gow2n", // from EmailJS
+        "template_aphctcc", // from EmailJS
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        "HDju2lz_zL_e4yTXa" // Public key from EmailJS
+      )
+      .then(
+        () => {
+          alert("Message sent successfully!");
+          setSent(true); // prevent another email
+          setFormData({ name: "", email: "", subject: "", message: "" });
+        },
+        (error) => {
+          console.error("Failed to send message:", error);
+          alert("Oops! Something went wrong. Check console for details.");
+        }
+      );
   };
 
   return (
@@ -114,7 +145,8 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    disabled={sent}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-50"
                     placeholder="Your name"
                   />
                 </div>
@@ -129,9 +161,15 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    disabled={sent}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-50 ${
+                      formData.email && !isEmailValid ? "border-red-500" : "border-gray-300"
+                    }`}
                     placeholder="your@email.com"
                   />
+                  {formData.email && !isEmailValid && (
+                    <p className="text-sm text-red-500 mt-1">Invalid email address</p>
+                  )}
                 </div>
               </div>
 
@@ -146,7 +184,8 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  disabled={sent}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-50"
                   placeholder="What's this about?"
                 />
               </div>
@@ -162,17 +201,28 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  maxLength={500}
+                  disabled={sent}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:opacity-50"
                   placeholder="Tell me about your project or just say hello!"
                 ></textarea>
+                <div className="flex justify-between text-sm mt-1">
+                  <span className={isMessageValid ? "text-gray-500" : "text-red-500"}>
+                    {formData.message.length}/500
+                  </span>
+                  {!isMessageValid && (
+                    <span className="text-red-500">Message must be 1–500 characters</span>
+                  )}
+                </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-yellow-500 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center space-x-2"
+                disabled={sent || !isFormValid}
+                className="w-full bg-yellow-500 text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={20} />
-                <span>Send Message</span>
+                <span>{sent ? "Message Sent" : "Send Message"}</span>
               </button>
             </form>
           </div>

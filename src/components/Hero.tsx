@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
 
+
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -73,14 +74,6 @@ const Hero = () => {
       {/* Content */}
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-8 animate-fade-in-up">
-            <div className="inline-block p-4 bg-gradient-to-r from-blue-50 to-yellow-50 rounded-full mb-6 shadow-lg">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-yellow-500 rounded-full flex items-center justify-center">
-                <span className="text-3xl font-bold text-white">H</span>
-              </div>
-            </div>
-          </div>
-
           <h1 className="text-6xl md:text-8xl font-bold mb-6 animate-fade-in-up animation-delay-200">
             Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-yellow-500"> Xiao Nan Ye</span>
           </h1>
