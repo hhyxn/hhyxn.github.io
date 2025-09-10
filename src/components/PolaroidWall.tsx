@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 
 const PolaroidWall = () => {
   const polaroids = [
-    { id: 1, image: "images/IMG_9467.JPG", caption: "Exploring Waterloo", rotation: -5 },
+    { id: 1, image: "images/IMG_9467.jpg", caption: "Exploring Waterloo", rotation: -5 },
     { id: 2, image: "images/IMG_7052.JPG", caption: "First day of Frosh", rotation: 3 },
     { id: 3, image: "images/IMG_1C1286E73381-1.jpeg", caption: "I'm serious when it comes to food", rotation: -2 },
     { id: 4, image: "images/IMG_4333.JPG", caption: "Having lots of fun with my first ciruits lab", rotation: 4 },
     { id: 5, image: "images/IMG_5172.JPG", caption: "First time playing on a Steinway", rotation: -4 },
     { id: 6, image: "images/IMG_5869.JPG", caption: "Study hard, eat good", rotation: 2 },
-    { id: 7, image: "images/IMG_9676.JPG", caption: "Me and my worst fears (Birds)", rotation: -3 },
+    { id: 7, image: "images/IMG_9676.jpg", caption: "Me and my worst fears (Birds)", rotation: -3 },
     { id: 8, image: "images/IMG_0012.JPG", caption: "Leetcode Grind with my coworker", rotation: 5 },
     { id: 9, image: "images/54349385076_2bd35aca7d_o.jpg", caption: "Presenting Lovelytics at UTMIST Mid-year Showcase!", rotation: -1 },
   ];
