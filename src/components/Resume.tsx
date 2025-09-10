@@ -55,10 +55,14 @@ const Resume = () => {
             My educational background, work experience, and technical skills that make me 
             a well-rounded Computer Engineering student.
           </p>
-          <button className="bg-yellow-500 text-blue-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-lg inline-flex items-center space-x-2">
+              <a
+            href="/resume.pdf"
+            download="Hannah_Resume.pdf"
+            className="bg-yellow-500 text-blue-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-lg inline-flex items-center space-x-2"
+          >
             <Download size={20} />
             <span>Download Resume</span>
-          </button>
+          </a>
         </div>
 
         <div className="max-w-4xl mx-auto">
