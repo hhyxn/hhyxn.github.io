@@ -5,7 +5,7 @@ const PolaroidWall = () => {
     { id: 1, image: "images/IMG_9467.jpg", caption: "Exploring Waterloo", rotation: -5 },
     { id: 2, image: "images/IMG_7052.JPG", caption: "First day of Frosh", rotation: 3 },
     { id: 3, image: "images/IMG_1C1286E73381-1.jpeg", caption: "I'm serious when it comes to food", rotation: -2 },
-    { id: 4, image: "images/IMG_4333.JPG", caption: "Having lots of fun with my first ciruits lab", rotation: 4 },
+    { id: 4, image: "images/IMG_4333.JPG", caption: "Having lots of fun with my first circuits lab", rotation: 4 },
     { id: 5, image: "images/IMG_5172.JPG", caption: "First time playing on a Steinway", rotation: -4 },
     { id: 6, image: "images/IMG_5869.JPG", caption: "Study hard, eat good", rotation: 2 },
     { id: 7, image: "images/IMG_9676.jpg", caption: "Me and my worst fears (Birds)", rotation: -3 },
@@ -18,20 +18,26 @@ const PolaroidWall = () => {
 
   const handlePrev = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? polaroids.length - visibleCount : prev - 1
+      (prev - 1 + polaroids.length) % polaroids.length
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev + visibleCount >= polaroids.length ? 0 : prev + 1
+      (prev + 1) % polaroids.length
     );
   };
 
-  const visiblePolaroids = polaroids.slice(
-    currentIndex,
-    currentIndex + visibleCount
-  );
+  const getVisiblePolaroids = () => {
+    const result = [];
+    for (let i = 0; i < visibleCount; i++) {
+      const index = (currentIndex + i) % polaroids.length;
+      result.push(polaroids[index]);
+    }
+    return result;
+  };
+
+  const visiblePolaroids = getVisiblePolaroids();
 
   // Corkboard canvas
   const canvasRef = useRef(null);
@@ -42,10 +48,8 @@ const PolaroidWall = () => {
     const ctx = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
-
     const browns = ["#D2A679", "#C68642", "#A97448"];
-    const blockSize = 1; // small pixel blocks for variation
-
+    const blockSize = 1;
     for (let y = 0; y < height; y += blockSize) {
       for (let x = 0; x < width; x += blockSize) {
         ctx.fillStyle = browns[Math.floor(Math.random() * browns.length)];
@@ -55,17 +59,14 @@ const PolaroidWall = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[550px] flex items-center justify-center">
-      {/* Corkboard with 3D wooden frame */}
-      <div className="relative w-[95%] h-[440px] shadow-2xl border-[40px] border-[#ae855c]">
-        {/* Frame bevel effect */}
-        <div className="absolute inset-0 border-[12px]  border-[#5C2C00] shadow-inner pointer-events-none" />
+    <div className="relative w-full h-[600px] flex flex-col items-center justify-center">
+      {/* Corkboard frame */}
+      <div className="relative w-[95%] h-[440px] shadow-2xl border-[40px] border-[#ae855c] overflow-hidden">
+        {/* Frame bevel */}
+        <div className="absolute inset-0 border-[12px] border-[#5C2C00] shadow-inner pointer-events-none" />
 
         {/* Corkboard canvas */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full "
-        />
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
         {/* Fairy lights */}
         <div className="absolute top-8 left-0 w-full h-16 overflow-hidden z-10">
@@ -101,20 +102,6 @@ const PolaroidWall = () => {
             ))}
           </svg>
         </div>
-
-        {/* Carousel buttons */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg z-20"
-        >
-          ◀
-        </button>
-        <button
-          onClick={handleNext}
-          className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg z-20"
-        >
-          ▶
-        </button>
 
         {/* Polaroids */}
         <div className="absolute top-24 left-1/2 -translate-x-1/2 flex items-center justify-center space-x-6 z-10">
@@ -161,6 +148,22 @@ const PolaroidWall = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Carousel buttons (below the wall, not overlapping images) */}
+      <div className="flex justify-center mt-6 space-x-8 z-20">
+        <button
+          onClick={handlePrev}
+          className="bg-white/90 p-3 rounded-full shadow-lg hover:bg-gray-100 transition"
+        >
+          ◀
+        </button>
+        <button
+          onClick={handleNext}
+          className="bg-white/90 p-3 rounded-full shadow-lg hover:bg-gray-100 transition"
+        >
+          ▶
+        </button>
       </div>
     </div>
   );
